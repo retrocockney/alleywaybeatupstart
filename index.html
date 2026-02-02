@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alleyway Beat Up</title>
+<style>
+  body {
+    margin: 0;
+    font-family: 'Press Start 2P', cursive;
+    background: #111;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+  }
+
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .button {
+    background: #ff3d00;
+    border: none;
+    padding: 1rem 2rem;
+    margin: 1rem;
+    font-size: 1rem;
+    color: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 60%;
+    max-width: 300px;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .character-grid {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .character {
+    background: #222;
+    padding: 1rem;
+    width: 120px;
+    text-align: center;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 2px solid #555;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.2s;
+  }
+
+  .character img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    margin-bottom: 0.5rem;
+  }
+
+  .character.selected {
+    border-color: #ff3d00;
+    transform: scale(1.1);
+  }
+
+  @media (max-width: 500px) {
+    h1 {
+      font-size: 1.5rem;
+    }
+    .button {
+      width: 80%;
+      font-size: 0.9rem;
+    }
+    .character {
+      width: 100px;
+      padding: 0.8rem;
+    }
+    .character img {
+      width: 80px;
+      height: 80px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- Start Screen -->
+<div id="start-screen">
+  <h1>Alleyway Beat Up</h1>
+  <button class="button" id="start-button">Start Game</button>
+</div>
+
+<!-- Character Select Screen -->
+<div id="character-screen" class="hidden">
+  <h1>Select Your Fighter</h1>
+  <div class="character-grid">
+    <div class="character" data-character="brawler">
+      <img src="Brawler.png" alt="Brawler">
+      <div>Brawler</div>
+    </div>
+    <div class="character" data-character="fastone">
+      <img src="FastOne.png" alt="Fast One">
+      <div>Fast One</div>
+    </div>
+    <div class="character" data-character="balanced">
+      <img src="Balanced.png" alt="Balanced">
+      <div>Balanced</div>
+    </div>
+  </div>
+  <button class="button" id="play-button">Play!</button>
+</div>
+
+<script>
+  const startButton = document.getElementById('start-button');
+  const playButton = document.getElementById('play-button');
+  const startScreen = document.getElementById('start-screen');
+  const characterScreen = document.getElementById('character-screen');
+  const characters = document.querySelectorAll('.character');
+
+  let selectedCharacter = null;
+
+  // Go to character select
+  startButton.addEventListener('click', () => {
+    startScreen.classList.add('hidden');
+    characterScreen.classList.remove('hidden');
+  });
+
+  // Select a character
+  characters.forEach(char => {
+    char.addEventListener('click', () => {
+      characters.forEach(c => c.classList.remove('selected'));
+      char.classList.add('selected');
+      selectedCharacter = char.dataset.character;
+    });
+  });
+
+  // Start game
+  playButton.addEventListener('click', () => {
+    if (!selectedCharacter) {
+      alert('Please select a character!');
+      return;
+    }
+    alert(`Starting game with: ${selectedCharacter}`);
+    // Here you would load Level 1 or start your game logic
+  });
+</script>
+
+</body>
+</html>
+
+<img src="https://via.placeholder.com/100x100.png?text=Brawler" alt="Brawler">
+<img src="https://via.placeholder.com/100x100.png?text=Fast+One" alt="Fast One">
+<img src="https://via.placeholder.com/100x100.png?text=Balanced" alt="Balanced">
